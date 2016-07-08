@@ -8,7 +8,7 @@ project_root = File.dirname(File.absolute_path(__FILE__))
 Dir.glob(project_root + '/lib/*') { |file| require file }
 
 task :meetup_meets_recruitee do
-  interesting_meetup_members = MeetupMemberProcessor.new.get_interesting_members
+  interesting_meetup_members = MeetupMemberProcessor.new.get_members
 
   puts "Number of interesting members found in meetup: #{interesting_meetup_members.count}"
 

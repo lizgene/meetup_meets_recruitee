@@ -6,8 +6,7 @@ class RecruiteeMemberProcessor
   def create_profiles!
     @candidates.each do |candidate|
       candidate_data = data(candidate)
-
-      RecruiteeClient.new.post(candidate_data)
+      RecruiteeClient.new.post_candidate(candidate_data)
     end
   end
 
@@ -15,13 +14,13 @@ class RecruiteeMemberProcessor
 
   def data(candidate)
     {
-      "candidate": {
-        "name": candidate["name"],
-        "email": "ruben@springest.com",
-        "phone": "000-0000000",
-        "remote_cv_url": "http://files.meetup.com/893746/Posting%20Events%20to%20Meetup(Opt1).pdf",
-        "cover_letter": candidate["meetup_profile"]
+      candidate: {
+        name: candidate[:name],
+        email: "meetup+#{candidate[:id]}@springest.com",
+        phone: "000-0000000",
+        remote_cv_url: "http://files.meetup.com/893746/Posting%20Events%20to%20Meetup(Opt1).pdf",
+        cover_letter: candidate[:meetup_profile]
       }
-    }.to_json
+    }
   end
 end
