@@ -1,6 +1,5 @@
 class MeetupClient
-  require 'HTTParty'
-  BASE_URL = "https://api.meetup.com/"
+  BASE_URL = "https://api.meetup.com"
 
   def initialize
     @api_key = api_key
@@ -8,11 +7,18 @@ class MeetupClient
   end
 
   def get_events(group_name)
-    HTTParty.get("#{@base_url}#{group_name}/events?key=#{@api_key}&sign=true")
+    puts "Getting events for group_name: #{group_name}"
+    HTTParty.get("#{@base_url}/#{group_name}/events?key=#{@api_key}&sign=true")
   end
 
   def get_rsvps(group_name, event_id)
-    HTTParty.get("#{@base_url}#{group_name}/events/#{event_id}/rsvps?key=#{@api_key}&sign=true")
+    puts "Getting rsvp: #{group_name}, #{event_id}"
+    HTTParty.get("#{@base_url}/#{group_name}/events/#{event_id}/rsvps?key=#{@api_key}&sign=true")
+  end
+
+  def get_member(member_id)
+    puts "Getting member: #{member_id}"
+    HTTParty.get("#{@base_url}/members/#{member_id}?fields=topics&key=#{@api_key}&sign=true")
   end
 
   private

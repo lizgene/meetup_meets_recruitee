@@ -1,4 +1,5 @@
 source "https://rubygems.org"
 
 gem 'rake'
-gem 'require_all'
+gem 'httparty'
+gem 'pry-byebug'
