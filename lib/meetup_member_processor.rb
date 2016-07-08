@@ -1,5 +1,6 @@
 class MeetupMemberProcessor
   require 'HTTParty'
+  require 'pry-byebug'
 
   MEETUP_GROUP_NAMES = ['Software-Circus', 'Amsterdam-rb', 'NLHTML5', 'Webcrafters', 'WebDevelopment-Nederland', 'amsterdam-software-craftsmanship', 'Amsterdam-Code-Coffee', 'RailsGirls-NL', 'Techionistas-Coding-Class-for-women', 'GirlsinTechNL']
 
@@ -9,16 +10,16 @@ class MeetupMemberProcessor
 
   def process!
     @group_names.each do |group_name|
-      upcoming_events = get_events(group_name)
+      upcoming_events = client.get_events(group_name)
 
       event_ids = extract_event_ids(upcoming_events)
 
       event_ids.each do |event_id|
-        rsvps = get_rsvps(event_id)
+        rsvps = client.get_rsvps(event_id)
         members = process_member_data(rsvps)
 
         members.each do |member|
-          RecruiteeProcessor.new(member).process!
+          RecruiteeMemberProcessor.new(member).process!
         end
       end
     end
@@ -27,6 +28,7 @@ class MeetupMemberProcessor
   private
 
   def extract_event_ids(upcoming_events)
+    debugger
   end
 
   def process_member_data(rsvps)
